@@ -8,9 +8,7 @@ Openswan was originally based on FreeS/WAN 2.04 CVS with the X.509 Patch
 from Andreas Steffen, the NAT-T patch from Arkoon networks and some minor
 bug fixes from 2.05 and 2.06.  See CREDITS for the history.
 
-Download it from
-
-    https://download.openswan.org/openswan/
+Download it from https://download.openswan.org/openswan/
 
 # REQUIREMENTS
 
@@ -24,35 +22,24 @@ distributions packaged version.
 There are a few packages required for Openswan to compile from source:
 
 1. The GNU Math Precision Library:
-
   - Debian package names: `libgmp-dev`
   - Rpm package names:    `gmp`, `gmp-devel`
-
-   Rpm users may need to install gcc if it is not installed on their system already
-
+  - Rpm users may need to install gcc if it is not installed on their system already
 2. `make`, `flex` and `bison`:
-
    - Debian package names: `make`, `flex`, `bison`
    - Rpm package names:    *same as for Debian*
-
 3. `iproute2`, `iptables`, `sed`, `awk`, `bash`, `cut` and possibly other tools
    are required at runtime.
-
    - Debian package names: `iproute2`, `iptables`, the rest are usually there
    - Rpm package names:    *same as for Debian*
-
    - python is also required for "ipsec verify".
-
 4. Running unit test:
-
    - Debian package names: `libpcap0.8-dev`, `libpcap0.8`, `electric-fence`, `tcpdump`
    - Rpm package names:    `libpcap`, `libpcap-devel`, `ElectricFence`, `tcpdump`
-
 5. Building with LIBNSS:
-
    - Debian package names: `libnspr4-dev`, `libnss3-dev`, `libnss3-tools`
    - Rpm package names:    *same as for Debian*
-
+   
 # HOW TO INSTALL on Kernel 2.6 (And Kernels with 2.6 IPsec backport)
 
 ## NETKEY (Native linux IPsec stack)
@@ -62,6 +49,7 @@ To use Openswan with the linux native (builtin) IPsec stack,  then the
 following steps should be all that are needed. Please use at least kernel
 version 2.6.9, as prior versions of the kernel have serious bugs in the
 native IPsec stack.  From the Openswan directory:
+
 ```
     make programs
     sudo make install
@@ -78,6 +66,7 @@ of the requirements.
 To use the Openswan KLIPS IPsec stack (ipsec0 devices) for Linux
 Kernels 2.6.23 and higher, the following steps should work.  From the
 Openswan directory:
+
 ```
     make programs
     make KERNELSRC=/lib/modules/`uname -r`/build module
@@ -91,53 +80,51 @@ installed.  It is good practice to build and install an unpatched kernel
 before starting to ensure the process is correct.  See your distribution
 documentation on how to build and install a new kernel
 
-    - Determine the linux source directory,  for example `/usr/src/linux` on
+- Determine the linux source directory,  for example `/usr/src/linux` on
     most full source installs.  It may also be `/usr/src/linux-2.[46].X`
-
-    - Add NAT-T support (if required).
-
-        - From the Openswan source directory:
-          ```
-          make KERNELSRC=/usr/src/linux nattpatch | patch -d /usr/src/linux -p1
-          ```
-          
-    - Add SAref tracking support (if required).
-
-        - Premade patches for some distributions kernels can be found in
+- Add NAT-T support (if required).
+    - From the Openswan source directory:
+    
+    ```
+    make KERNELSRC=/usr/src/linux nattpatch | patch -d /usr/src/linux -p1
+    ``` 
+- Add SAref tracking support (if required).
+    - Premade patches for some distributions kernels can be found in
         `patches/kernel/`  It is recommended that kernel 2.6.32 or higher is
         used. Documentation on `SAref/MAST` can be found in `docs/HACKING/Mast*`
         and `doc/klips/mast.xml`. To understand what SAref tracking does, see
         `doc/ipsecsaref.png` and the overlapip= entry in the ipsec.conf man page.
 
-        - From the Openswan source directory:
-          ```
-          make KERNELSRC=/usr/src/linux sarefpatch | patch -d /usr/src/linux -p1
-          ```
-          
-    - Add OCF HW offloading support
+- From the Openswan source directory:
 
-        - For OCF HW offloading support, you need also need a patched kernel
+```
+    make KERNELSRC=/usr/src/linux sarefpatch | patch -d /usr/src/linux -p1
+```
+          
+- Add OCF HW offloading support
+    - For OCF HW offloading support, you need also need a patched kernel
         See: [http://ocf-linux.sourceforge.net/] for more details.
 
-    - Build and install a new kernel
-
-        - See your distribution documentation on how to install a new kernel.
-        - It should be something similar to:
-          ```
+- Build and install a new kernel
+    - See your distribution documentation on how to install a new kernel.
+    - It should be something similar to:
+    
+    ```
           cd /usr/src/linux
           make oldconfig
           make dep                    (- this step is ignored on 2.6 systems)
           make bzImage install
-          ```
+    ```
           
-    - Build Openswan
+- Build Openswan
 
-        - From the Openswan source directory:
-            ```
+    - From the Openswan source directory:
+    
+    ```
             make programs
             make KERNELSRC=/usr/src/linux module
             sudo make KERNELSRC=/usr/src/linux install minstall
-            ```
+    ```
             
 The Openswan configuration file can select which ipsec stack to use at
 runtime by using the "protostack=<klips|netkey|mast>" options in ipsec.conf.
@@ -146,11 +133,9 @@ See the ipsec.conf man page for more information on configuration options.
 
 # UPGRADING
 
-
 1. If you are upgrading from a 1.x product to Openswan 2.x, you will
    need to adjust your config files.  See doc/upgrading.html for details
    on what has changed.
-
 2. You can 'make install' overtop of your old version - it won't replace
    your /etc/ipsec.* config files
 
@@ -158,18 +143,18 @@ See the ipsec.conf man page for more information on configuration options.
 
 ## Mailing Lists:
 
-    https://lists.openswan.org is home of the mailing lists.  Note: these are
+https://lists.openswan.org is home of the mailing lists.  Note: these are
     closed lists - you *must* be subscribed to post.
 
 ## Wiki:
 
-    https://github.com/xelerance/Openswan/wiki is home to the Openswan Wiki.
+https://github.com/xelerance/Openswan/wiki is home to the Openswan Wiki.
     It has the most up to date documentation, interop guides and other related
     information.
 
 ## IRC:
 
-    Openswan developers and users can be found on IRC, on #openswan on
+Openswan developers and users can be found on IRC, on #openswan on
     irc.freenode.net.
 
 Commercial support for Openswan is also available - see
